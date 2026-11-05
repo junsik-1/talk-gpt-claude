@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="GPT와 Claude가 서로 검토하고 합의해 더 나은 답을 만드는 AI 토론 인터페이스" />
+    <meta name="theme-color" content="#0b0c0e" />
+    <title>Roundtable AI — 더 나은 답을 위한 두 개의 시선</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Roundtable AI 홈">
+        <span class="brand-mark" aria-hidden="true">
+          <i></i><i></i>
+        </span>
+        <span>ROUNDTABLE</span>
+      </a>
+      <div class="topbar-center" aria-label="시스템 상태">
+        <span class="live-dot"></span>
+        <span>토론 시스템 준비됨</span>
+      </div>
+      <div class="topbar-actions">
+        <span class="demo-badge">INTERACTIVE DEMO</span>
+        <button class="icon-button" id="themeButton" type="button" aria-label="화면 밝기 전환">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42M7.06 16.94l-1.42 1.42M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0Z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <button class="new-debate" id="newDebateButton" type="button">
+          <span>새 토론</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+        </button>
+
+        <section class="side-section">
+          <div class="section-label">
+            <span>QUICK START</span>
+            <span>04</span>
+          </div>
+          <div class="prompt-list">
+            <button class="prompt-chip" type="button" data-prompt="3개월 안에 사이드 프로젝트를 수익화하려면 어떤 전략이 가장 현실적일까?">
+              <span class="prompt-num">01</span>
+              <span>사이드 프로젝트 수익화 전략</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <button class="prompt-chip" type="button" data-prompt="AI 시대에 디자이너가 경쟁력을 유지하려면 무엇을 배워야 할까?">
+              <span class="prompt-num">02</span>
+              <span>AI 시대의 디자이너 역량</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <button class="prompt-chip" type="button" data-prompt="서울에서 처음 만나는 사람과 2박 3일 여행을 한다면 어떤 일정이 좋을까?">
+              <span class="prompt-num">03</span>
+              <span>서울 2박 3일 여행 설계</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+            <button class="prompt-chip" type="button" data-prompt="우리 팀에 주 4일제를 도입해도 생산성을 유지할 수 있을까?">
+              <span class="prompt-num">04</span>
+              <span>주 4일제 도입 검토</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <section class="side-section settings-section">
+          <div class="section-label"><span>DEBATE SETTINGS</span></div>
+          <label class="setting-block">
+            <span class="setting-title">토론 라운드</span>
+            <span class="segmented" id="roundSelector">
+              <button type="button" data-rounds="2">2</button>
+              <button class="active" type="button" data-rounds="3">3</button>
+              <button type="button" data-rounds="4">4</button>
+            </span>
+          </label>
+          <label class="setting-block">
+            <span class="setting-title">검토 강도</span>
+            <span class="select-wrap">
+              <select id="depthSelect" aria-label="검토 강도">
+                <option value="balanced">균형 있게</option>
+                <option value="critical">비판적으로</option>
+                <option value="creative">창의적으로</option>
+              </select>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 10 4 4 4-4"/></svg>
+            </span>
+          </label>
+        </section>
+
+        <div class="sidebar-foot">
+          <div class="model-mini">
+            <span class="mini-orb gpt-orb">G</span>
+            <span>
+              <b>GPT</b>
+              <small>제안 · 구조화</small>
+            </span>
+          </div>
+          <span class="plus">+</span>
+          <div class="model-mini">
+            <span class="mini-orb claude-orb">C</span>
+            <span>
+              <b>Claude</b>
+              <small>비판 · 맥락화</small>
+            </span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <section class="intro-panel" id="introPanel">
+          <div class="eyebrow"><span></span> TWO MINDS, ONE BETTER ANSWER</div>
+          <h1>첫 번째 답보다,<br /><em>더 나은 결론.</em></h1>
+          <p class="intro-copy">
+            GPT가 해답을 제안하고 Claude가 빈틈을 찾습니다.<br />
+            서로의 논리를 검토한 뒤, 하나의 실행 가능한 답으로 합의합니다.
+          </p>
+
+          <form class="question-box" id="questionForm">
+            <label for="questionInput">무엇이든 물어보세요</label>
+            <textarea id="questionInput" rows="2" placeholder="예: 다음 커리어로 이직과 창업 중 무엇을 선택해야 할까?" required></textarea>
+            <div class="question-actions">
+              <div class="input-meta">
+                <span class="model-stack" aria-hidden="true">
+                  <i class="gpt-orb">G</i><i class="claude-orb">C</i>
+                </span>
+                <span>두 모델이 함께 답합니다</span>
+              </div>
+              <button class="start-button" type="submit">
+                <span>토론 시작</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14 0m-5-5 5 5-5 5"/></svg>
+              </button>
+            </div>
+          </form>
+
+          <div class="process-strip" aria-label="토론 과정">
+            <div><span>01</span><p><b>초안</b>서로 다른 관점 제시</p></div>
+            <i></i>
+            <div><span>02</span><p><b>교차 검증</b>근거와 허점 검토</p></div>
+            <i></i>
+            <div><span>03</span><p><b>합의</b>최선의 답으로 통합</p></div>
+          </div>
+        </section>
+
+        <section class="debate-panel" id="debatePanel" aria-live="polite" hidden>
+          <div class="debate-head">
+            <div>
+              <div class="eyebrow"><span></span> LIVE ROUNDTABLE</div>
+              <h2 id="debateQuestion"></h2>
+            </div>
+            <div class="debate-controls">
+              <span id="turnCount">1 / 4 turns</span>
+              <button class="pause-button" id="pauseButton" type="button" aria-label="토론 일시정지">
+                <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+                <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 9 6-9 6Z"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="progress-track"><span id="progressBar"></span></div>
+
+          <div class="debate-grid">
+            <div class="conversation" id="conversation"></div>
+            <aside class="round-map">
+              <div class="section-label"><span>ROUNDTABLE MAP</span></div>
+              <ol id="roundMap">
+                <li class="active"><span>1</span><div><b>초안 제시</b><small>각자의 접근</small></div></li>
+                <li><span>2</span><div><b>교차 검증</b><small>허점과 반론</small></div></li>
+                <li><span>3</span><div><b>관점 통합</b><small>합의점 도출</small></div></li>
+                <li><span>4</span><div><b>최종 답변</b><small>실행안 정리</small></div></li>
+              </ol>
+              <div class="quality-meter">
+                <div><span>답변 완성도</span><b id="qualityValue">24%</b></div>
+                <div class="meter-track"><i id="qualityBar"></i></div>
+                <p id="qualityNote">두 관점을 수집하고 있어요.</p>
+              </div>
+            </aside>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status">답변을 복사했어요.</div>
+    <button class="mobile-menu" id="mobileMenu" type="button" aria-label="메뉴 열기">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14M5 16h14"/></svg>
+    </button>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
