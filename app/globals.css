@@ -79,6 +79,14 @@ button, a { -webkit-tap-highlight-color: transparent; }
   letter-spacing: .14em;
 }
 
+.brand-button {
+  background: transparent;
+  border-top: 0;
+  border-bottom: 0;
+  border-left: 0;
+  cursor: pointer;
+}
+
 .brand-mark {
   width: 25px;
   height: 25px;
@@ -116,6 +124,11 @@ button, a { -webkit-tap-highlight-color: transparent; }
   box-shadow: 0 0 0 5px color-mix(in srgb, var(--lime) 12%, transparent);
 }
 
+.live-dot.demo-dot {
+  background: var(--claude);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--claude) 12%, transparent);
+}
+
 .topbar-actions {
   height: 100%;
   padding: 0 22px;
@@ -133,6 +146,12 @@ button, a { -webkit-tap-highlight-color: transparent; }
   font-weight: 750;
   letter-spacing: .13em;
   color: var(--muted);
+}
+
+.demo-badge.live-badge {
+  color: #111;
+  background: var(--lime);
+  border-color: var(--lime);
 }
 
 .icon-button, .pause-button {
@@ -549,7 +568,7 @@ h1 em {
 .message-meta b { font-size: 12px; }
 .message-meta span { color: var(--muted-2); font-size: 9px; letter-spacing: .07em; }
 .message-tag { border: 1px solid var(--line); padding: 3px 6px; font-size: 8px !important; }
-.message-text { color: color-mix(in srgb, var(--text) 80%, var(--muted)); font-size: 14px; line-height: 1.82; }
+.message-text { color: color-mix(in srgb, var(--text) 80%, var(--muted)); font-size: 14px; line-height: 1.82; white-space: pre-wrap; }
 .message-text p { margin: 0 0 10px; }
 .message-text p:last-child { margin-bottom: 0; }
 .message-text strong { color: var(--text); font-weight: 700; }
@@ -572,6 +591,35 @@ h1 em {
 .thinking-orb::after { animation-delay: .2s; }
 @keyframes pulse { 0%, 70%, 100% { opacity: .25; transform: translateY(0); } 35% { opacity: 1; transform: translateY(-3px); } }
 .thinking p { margin: 11px 0 0; color: var(--muted); font-size: 10px; letter-spacing: .05em; }
+
+.error-panel {
+  margin: 26px 0;
+  padding: 20px;
+  border: 1px solid color-mix(in srgb, var(--claude) 55%, var(--line));
+  background: color-mix(in srgb, var(--claude) 7%, var(--surface));
+}
+
+.error-panel b {
+  display: block;
+  font-size: 12px;
+}
+
+.error-panel p {
+  margin: 8px 0 15px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.error-panel button {
+  border: 1px solid var(--line-strong);
+  background: var(--text);
+  color: var(--bg);
+  padding: 8px 12px;
+  font-size: 10px;
+  font-weight: 750;
+  cursor: pointer;
+}
 
 .final-answer {
   margin-top: 30px;
